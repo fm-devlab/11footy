@@ -1,0 +1,5 @@
+# Line endings are fixed so that hashes and diffs do not depend on the OS or on core.autocrlf.
+* text=auto eol=lf
+*.gz binary
+*.png binary
+*.bat text eol=crlf

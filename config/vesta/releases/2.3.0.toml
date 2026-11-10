@@ -1,0 +1,50 @@
+# The release of vesta-2.3.0: the parts of 2.2.0 unchanged, and the spine's M1-M5 in the UEFA club
+# cups and their qualifying rounds, pre-match only. The cups' model (one Elo across the five
+# leagues and the cups, a Poisson on its difference, the venue and the qualifying rounds) passed
+# blind once on both closed seasons (2026-10-28-blind-verdicts.md: 1,918 matches, log loss 0.9614
+# against the frequencies' 1.0327, interval -0.0928 to -0.0498, 2 of 2 seasons, calibration 0.0210
+# against 0.0208); its development reproduction missed only 2019-20 (0.9679 against 0.9652), the 54
+# summer play-off matches classed as qualifying rounds, accepted on that record
+# (2026-10-25-verdicts-findings.md). As in the leagues, the result is judged and the other four
+# keys are read from the same score matrix. Not in this release: the national teams (blind
+# calibration 0.0112 against the reference's 0.0039, worse by more than 0.005: fail), goals in
+# time, the live chain and team counts in the cups (not judged on the cups).
+version = "2.3.0"
+verdict_id = "2026-10-28-verdicts.md; 2026-10-28-blind-verdicts.md; 2026-10-25-verdicts-findings.md (the cups' 2019-20 miss); 2026-10-28-season-development.md; 2026-10-28-season-blind.md with 2026-10-28-season-alarm-check.md; 2026-10-29-team-counts-development-candidate-2.md with 2026-10-29-team-counts-alarm-check.md; 2026-10-29-team-counts-blind.md"
+what_changed = "the match result, score, goals, both score and team goals in the Champions League, the Europa League, the Conference League and their qualifying rounds, pre-match"
+
+[[part]]
+family_member = "spine"
+competitions = ["PL", "LL", "SA", "BL", "L1"]
+keys = ["M1.result", "M2.score", "M3.goals", "M4.both_score", "M5.goals.team"]
+live = true
+
+[[part]]
+family_member = "spine"
+competitions = ["CL", "EL", "ECL", "CLQ", "ELQ", "ECLQ"]
+keys = ["M1.result", "M2.score", "M3.goals", "M4.both_score", "M5.goals.team"]
+live = false
+
+[[part]]
+family_member = "goals in time"
+competitions = ["PL", "LL", "SA", "BL", "L1"]
+keys = ["M10.result.second_half", "M10.score.second_half", "M11.comes_from_behind_to_win.team", "M11.leads_at_half_time_and_wins.team", "M11.scores_in_both_halves.team", "M11.wins_both_halves.team", "M11.wins_either_half.team", "M12.both_halves_over.line=0.5", "M12.both_halves_over.line=1.5", "M12.goals.first_half", "M13.first_goal_method", "M7.first_goal", "M7.last_goal", "M8.first_goal_time", "M8.goal_in_band.band=16-30", "M8.goal_in_band.band=31-45", "M8.goal_in_band.band=76-90", "M8.goal_in_band.band=81-90", "M9.half_time_full_time", "M9.result.first_half", "M9.score.first_half"]
+live = true
+
+[[part]]
+family_member = "live chain"
+competitions = ["PL", "LL", "SA", "BL", "L1"]
+keys = ["M7.next_goal"]
+live = true
+
+[[part]]
+family_member = "season"
+competitions = ["PL", "LL", "SA", "BL", "L1"]
+keys = ["T1.final_position", "T1.points"]
+live = false
+
+[[part]]
+family_member = "team counts"
+competitions = ["PL", "LL", "SA", "BL", "L1"]
+keys = ["M15.corners.team", "M15.corners.sides", "M17.cards", "M17.cards.team", "M17.cards.sides"]
+live = false

@@ -1,0 +1,33 @@
+# Team counts (step 6, its plan of 29 October 2026): the parameters, fixed before
+# the first verdict and never tuned on its seasons.
+
+[fit]
+# the matches a weekly fit reads: those known in this many days before the week starts
+window_days = 730
+# a match's weight halves every this many days back from the week's start
+half_life_days = 180
+# the ridge on each team's make and allow terms (in the units of a match's log-likelihood):
+# a club with few matches stays near the league's level
+ridge = 3.0
+# a league's fit needs this many matches, else its forecasts are not made
+minimum_matches = 200
+
+[counts.corners]
+# a side's count runs 0 to size - 1, the mass beyond folded into the last cell
+size = 21
+
+[counts.cards]
+size = 11
+
+# Family A (its plan, §1), the same fit, sizes per count
+[counts.shots]
+size = 41
+
+[counts.shots_on_target]
+size = 21
+
+[counts.fouls]
+size = 36
+
+[counts.offsides]
+size = 16

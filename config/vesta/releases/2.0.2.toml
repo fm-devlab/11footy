@@ -1,0 +1,26 @@
+# The release of vesta-2.0.2: the parts of 2.0.1 unchanged, with M1.result moving live. Its live
+# verdict passed in development and blind (2026-10-28-verdicts.md and -blind-verdicts.md, "The
+# live chain (step 4)"), but the catalogue's moves_live of M1.result was still 0 from 24 October,
+# so 2.0.1 registered it as not moving (a slip, the decision of 28 October 2026 evening).
+# M2-M5 stay still: M3 live is the goals so far plus M3.goals.to_come, which failed its verdict.
+version = "2.0.2"
+verdict_id = "2026-10-28-verdicts.md; 2026-10-28-blind-verdicts.md"
+what_changed = "the 1X2 moves live (its live verdict passed; 2.0.1 left it still by a slip)"
+
+[[part]]
+family_member = "spine"
+competitions = ["PL", "LL", "SA", "BL", "L1"]
+keys = ["M1.result", "M2.score", "M3.goals", "M4.both_score", "M5.goals.team"]
+live = true
+
+[[part]]
+family_member = "goals in time"
+competitions = ["PL", "LL", "SA", "BL", "L1"]
+keys = ["M10.result.second_half", "M10.score.second_half", "M11.comes_from_behind_to_win.team", "M11.leads_at_half_time_and_wins.team", "M11.scores_in_both_halves.team", "M11.wins_both_halves.team", "M11.wins_either_half.team", "M12.both_halves_over.line=0.5", "M12.both_halves_over.line=1.5", "M12.goals.first_half", "M13.first_goal_method", "M7.first_goal", "M7.last_goal", "M8.first_goal_time", "M8.goal_in_band.band=16-30", "M8.goal_in_band.band=31-45", "M8.goal_in_band.band=76-90", "M8.goal_in_band.band=81-90", "M9.half_time_full_time", "M9.result.first_half", "M9.score.first_half"]
+live = true
+
+[[part]]
+family_member = "live chain"
+competitions = ["PL", "LL", "SA", "BL", "L1"]
+keys = ["M7.next_goal"]
+live = true

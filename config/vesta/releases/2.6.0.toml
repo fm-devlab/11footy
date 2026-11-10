@@ -1,0 +1,89 @@
+# The release of vesta-2.6.0: the parts of 2.5.0 unchanged, and the player thresholds (roadmap
+# step 4), pre-match, the five leagues, each "if he plays" (a player who does not play is void):
+# his shots (P1.shots), shots on target (P2.shots_on_target), key passes (P7.key_passes), fouls
+# committed (P8.fouls) and drawn (P8.fouls_drawn), each a whole count distribution, and whether he
+# is booked (P9.booked), each player of the lineups' pool. The six keys passed in development
+# (2026-10-31-player-thresholds-development.md, 5 of 5) and blind once
+# (2026-10-31-player-thresholds-blind.md, 2 of 2), no alarm; P9.booked's blind coherence (+6.7 %)
+# is the seasons' level of bookings, shared with the released team cards (+0.3 % between them),
+# released on approval. P14.saves (a goalkeeper's saves) and P16.offsides (an
+# outfield player's) passed as candidate 2, their expected counts scaled by the season's scale
+# (config/vesta/thresholds-scales.toml, fitted on the two seasons before); P16.offsides' blind
+# coherence (-8.4 %) is noted and monitored monthly (held beyond +/-10 %).
+# The spine in the cups: M1-M5 settled and trained on the score after 90 minutes, the Elo on the
+# final score (2026-10-31-cups-ninety-minutes-development.md, blind 2/2); the cups' Elo gives a new
+# club its peers' known ratings (2026-10-31-cups-elo-leak-recheck.md).
+# The leagues' live chain v2 (family C, 2026-10-31-live-v2-development.md and -blind.md): the law
+# moved by the run of play (shots on target, other shots, corners so far), M1.result and
+# M7.next_goal live on it, and M4.both_score live for the first time (moves_live); the run-of-play
+# factor fitted once a season beside the live parameters. M3.goals.to_come stays unregistered
+# (minute 15), M3.goals frozen; the cups stay pre-match.
+# Team counts extended (family A): shots, shots on target, fouls and offsides in the leagues
+# (2.2.0's corners and cards unchanged), and in the cups shots, on target (team, sides), fouls,
+# corners (total, team), cards (total, sides) and offsides, the qualifiers without fouls and cards
+# (worse than the reference there); held: the leagues' corners total, the cups' on-target total,
+# corners.sides and cards.team. The leagues' fouls carry their warning (58-61 % of the ceiling),
+# explained by a stale reference (2026-10-31-team-counts-fouls-warning-diagnostic.md).
+version = "2.6.0"
+verdict_id = "2026-10-28-verdicts.md; 2026-10-28-blind-verdicts.md; 2026-10-25-verdicts-findings.md (the cups' 2019-20 miss); 2026-10-28-season-development.md; 2026-10-28-season-blind.md with 2026-10-28-season-alarm-check.md; 2026-10-29-team-counts-development-candidate-2.md with 2026-10-29-team-counts-alarm-check.md; 2026-10-29-team-counts-blind.md; 2026-10-29-lineups-development.md with 2026-10-29-lineups-alarm-check.md; 2026-10-29-lineups-blind.md; 2026-10-30-scorers-development.md; 2026-10-30-scorers-blind.md; 2026-10-31-player-thresholds-development.md; 2026-10-31-player-thresholds-blind.md; 2026-10-31-player-thresholds-development-candidate-2.md; 2026-10-31-player-thresholds-blind-candidate-2.md; 2026-10-31-cups-ninety-minutes-development.md; 2026-10-31-live-v2-development.md; 2026-10-31-live-v2-blind.md; 2026-10-31-team-counts-leagues-development.md; 2026-10-31-team-counts-cups-development.md; 2026-10-31-team-counts-leagues-blind.md; 2026-10-31-team-counts-cups-blind.md; 2026-10-31-team-counts-leagues-development-candidate-2.md; 2026-10-31-team-counts-cups-development-candidate-2.md; 2026-10-31-team-counts-leagues-blind-candidate-2.md; 2026-10-31-team-counts-cups-blind-candidate-2.md; 2026-10-31-cups-elo-leak-recheck.md"
+what_changed = "the player thresholds before the match, if he plays: his shots, shots on target, key passes, fouls committed and drawn, whether he is booked, a goalkeeper's saves, an outfield player's offsides"
+
+[[part]]
+family_member = "spine"
+competitions = ["PL", "LL", "SA", "BL", "L1"]
+keys = ["M1.result", "M2.score", "M3.goals", "M4.both_score", "M5.goals.team"]
+live = true
+
+[[part]]
+family_member = "spine"
+competitions = ["CL", "EL", "ECL", "CLQ", "ELQ", "ECLQ"]
+keys = ["M1.result", "M2.score", "M3.goals", "M4.both_score", "M5.goals.team"]
+live = false
+
+[[part]]
+family_member = "goals in time"
+competitions = ["PL", "LL", "SA", "BL", "L1"]
+keys = ["M10.result.second_half", "M10.score.second_half", "M11.comes_from_behind_to_win.team", "M11.leads_at_half_time_and_wins.team", "M11.scores_in_both_halves.team", "M11.wins_both_halves.team", "M11.wins_either_half.team", "M12.both_halves_over.line=0.5", "M12.both_halves_over.line=1.5", "M12.goals.first_half", "M13.first_goal_method", "M7.first_goal", "M7.last_goal", "M8.first_goal_time", "M8.goal_in_band.band=16-30", "M8.goal_in_band.band=31-45", "M8.goal_in_band.band=76-90", "M8.goal_in_band.band=81-90", "M9.half_time_full_time", "M9.result.first_half", "M9.score.first_half"]
+live = true
+
+[[part]]
+family_member = "live chain"
+competitions = ["PL", "LL", "SA", "BL", "L1"]
+keys = ["M7.next_goal"]
+live = true
+
+[[part]]
+family_member = "season"
+competitions = ["PL", "LL", "SA", "BL", "L1"]
+keys = ["T1.final_position", "T1.points"]
+live = false
+
+[[part]]
+family_member = "team counts"
+competitions = ["PL", "LL", "SA", "BL", "L1"]
+keys = ["M15.corners.team", "M15.corners.sides", "M17.cards", "M17.cards.team", "M17.cards.sides", "M20.shots", "M20.shots.team", "M20.shots.sides", "M20.shots_on_target", "M20.shots_on_target.team", "M20.shots_on_target.sides", "M21.fouls", "M21.fouls.team", "M21.fouls.sides", "M19.offsides", "M19.offsides.team"]
+live = false
+
+[[part]]
+family_member = "team counts"
+competitions = ["CL", "EL", "ECL"]
+keys = ["M20.shots", "M20.shots.team", "M20.shots.sides", "M20.shots_on_target.team", "M20.shots_on_target.sides", "M21.fouls", "M21.fouls.team", "M21.fouls.sides", "M15.corners", "M15.corners.team", "M17.cards", "M17.cards.sides", "M19.offsides", "M19.offsides.team"]
+live = false
+
+[[part]]
+family_member = "team counts"
+competitions = ["CLQ", "ELQ", "ECLQ"]
+keys = ["M20.shots", "M20.shots.team", "M20.shots.sides", "M20.shots_on_target.team", "M20.shots_on_target.sides", "M15.corners", "M15.corners.team", "M19.offsides", "M19.offsides.team"]
+live = false
+
+[[part]]
+family_member = "lineups"
+competitions = ["PL", "LL", "SA", "BL", "L1"]
+keys = ["L1.starts", "L6.minutes", "L9.position", "L2.formation.team"]
+live = false
+
+[[part]]
+family_member = "players"
+competitions = ["PL", "LL", "SA", "BL", "L1"]
+keys = ["P3.scores", "P3.goals", "P3.first_scorer", "P5.assists", "P5.scores_or_assists", "P1.shots", "P2.shots_on_target", "P7.key_passes", "P8.fouls", "P8.fouls_drawn", "P9.booked", "P14.saves", "P16.offsides"]
+live = false

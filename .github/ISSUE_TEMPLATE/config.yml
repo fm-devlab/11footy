@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Questions and ideas
+    url: https://github.com/fm-devlab/11footy/discussions
+    about: Ask how Vesta works, or suggest something new.
+  - name: Wrong football data
+    url: https://github.com/fm-devlab/11footy-dataset/issues/new/choose
+    about: A wrong score, scorer, date or line-up belongs in the dataset repository.
+  - name: Security problem
+    url: https://github.com/fm-devlab/11footy/security/advisories/new
+    about: Report it privately, never in a public issue.

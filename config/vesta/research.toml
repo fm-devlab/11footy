@@ -1,0 +1,197 @@
+# The parameters of Vesta's research discipline (src/vesta/research/README.md).
+# They were fixed before any verdict; a change here is itself a change of the discipline,
+# proposed to the maintainers.
+
+[verdict]
+bootstrap_repetitions = 2000
+seed = 20261023
+coverage = 0.95
+# a candidate must improve the deciding metric in at least this many development seasons
+min_seasons_improved = 3
+# the candidate's expected calibration error may exceed the champion's by at most this much
+calibration_tolerance = 0.005
+# Against a frequency reference (a near-constant forecast, calibrated by construction: one bucket
+# on its own rate), the calibration test is absolute instead: the model's expected calibration
+# error under `frequency_reference_max_ece`, and every bucket's happened share inside the
+# `frequency_reference_band` band a perfectly calibrated forecaster would show on that count (the
+# check job's chance band). Approved on 31 October 2026 for verdicts declared from
+# `frequency_reference_from` on; nothing judged before is re-judged, and a key that failed under
+# the relative test is judged again only as a new candidate, on new seasons or a forward check.
+# Changed on 1 November 2026 (on family A's finding): the band covers the buckets
+# together, not each alone; each bucket's band at `frequency_reference_band ** (1 / k)`, k the
+# buckets holding forecasts (`vesta.research.calibration.joint_coverage`), because ten buckets at
+# 90 % each fail a calibrated model about 65 % of the time. For plans declared from
+# `frequency_reference_joint_from` on; the only run under the per-bucket band (family A's recent
+# references, 1 November) decided nothing published and stays as reported.
+frequency_reference_max_ece = 0.02
+frequency_reference_band = 0.90
+frequency_reference_from = "2026-11-01"
+frequency_reference_joint_from = "2026-11-01"
+# an inner grid of a hypothesis tries at most this many configurations
+grid_max = 6
+
+# The seasons a hypothesis is developed and judged on, and the seasons no selection may read
+# (decided on 23 October 2026, src/vesta/research/README.md §3).
+[seasons]
+development = [2019, 2020, 2021, 2022, 2023]
+closed = [2024, 2025]
+
+# The leakage alarm, per kind of distribution: a gain larger than any honest change could give
+# stops the work until it is understood. A kind without a rule cannot be judged: its rule is
+# written here, with its reason, before its first verdict.
+[alarm.ordered]
+# the result (M1): the reference thresholds
+max_accuracy = 0.56
+max_gain = 0.020
+
+[alarm.binary]
+# a yes/no line (log loss about 0.2-0.7): a gain over the published model larger than 0.010 from
+# a timing or tie parameter would be larger than any honest change of this kind could give (the
+# development verdict's largest binary gains, 0.03-0.05, were against the training frequencies,
+# not against the model). Approved on 26 October 2026, before any binary verdict.
+max_gain = 0.010
+
+[alarm.categorical]
+# the same reason on lines of three to nine outcomes (log loss about 1-2). Approved on
+# 26 October 2026, before any categorical verdict.
+max_gain = 0.015
+
+[alarm.rank]
+# the season simulation (T1): the Brier gain over the ppg_shrunk baseline (points per game shrunk
+# toward the league's), all checkpoints together, larger than twice the reference's own gain under
+# the same protocol (title 0.0073, top four 0.0194, bottom three 0.0033), with a floor of 0.010,
+# would point at information from after the checkpoint, not a better model. Approved on 28 October
+# 2026, before any season verdict; it only stops a verdict, never passes one.
+max_gain_title = 0.015
+max_gain_top_four = 0.039
+max_gain_bottom_three = 0.010
+
+[alarm.count]
+# team counts (M15 corners, M17 cards: a match's or a side's count): corners and cards are noisy;
+# team strengths shave only a few percent off the frequencies' log score (about 2.0 a side for
+# corners), so a gain over the reference of 0.10 or more would point at information from after
+# the kick-off. Approved on 29 October 2026, before any count verdict.
+max_gain = 0.10
+
+[alarm.joint_count]
+# the two sides' counts together (M15.corners.sides, M17.cards.sides): the same reason on a log
+# score of a cell, which adds the two sides' noise. Approved with [alarm.count].
+max_gain = 0.15
+
+[alarm.lineups]
+# the lineups family (L1.starts, L6.plays binary; L2.formation.team, L9.position categorical;
+# L6.minutes on five bins, a category): who starts is predictable from the recent sheets but not
+# much beyond what the last match says, so a gain over the plan's references (the last match's
+# state, from the seasons before) larger than these would point at the match's own sheet leaking.
+# Approved on 29 October 2026, before any lineups verdict.
+max_gain_binary = 0.08
+max_gain_categorical = 0.15
+
+[alarm.progression]
+# the UEFA cups' progression (T4: round reached, phase place, qualifies), family B: the reference
+# (equal strength on the same state) has no strength, so a large gain is expected and a gain cap
+# cannot catch a leak. The verdict stops when, at any checkpoint, the realised mean log score is
+# below the mean entropy of Vesta's own forecasts by more than `stop_standard_errors` bootstrap
+# standard errors (forecasts too good for their own uncertainty); a gap beyond
+# `warn_standard_errors` is flagged as a warning in the verdict without stopping it, and the gap in
+# standard errors is reported at every checkpoint. Beside it, the run asserts that every fact and
+# tie it reads was there before the checkpoint. Approved on 31 October 2026, before any
+# progression verdict.
+stop_standard_errors = 3.0
+warn_standard_errors = 2.0
+
+[alarm.nations_progression]
+# family B's nations' tournaments (T6: round reached, group place): the same sharpness check as
+# [alarm.progression] (stop beyond `stop_standard_errors`, warn beyond `warn_standard_errors`, the
+# gap reported at every checkpoint) and the known-before assertion. T6 is released only beside a
+# released nations model and re-run if that model changes. Approved on 31 October 2026,
+# before any T6 verdict.
+stop_standard_errors = 3.0
+warn_standard_errors = 2.0
+
+[alarm.windows]
+# family B's streaks, next k matches and windows (T3, T12, T13): the reference (the team's own
+# form, shrunk) is weak, so a gain cap cannot catch a leak; the same sharpness check as
+# [alarm.progression]: the verdict stops when, at any checkpoint, the realised mean log score is
+# below the mean entropy of Vesta's own forecasts by more than `stop_standard_errors` bootstrap
+# standard errors, warns beyond `warn_standard_errors`, and reports the gap at every checkpoint;
+# the run asserts that every input it reads was known before the checkpoint. Approved on
+# 31 October 2026, before any windows verdict.
+stop_standard_errors = 3.0
+warn_standard_errors = 2.0
+
+[alarm.team_counts]
+# family A's team counts (M19 offsides, M20 shots and shots on target, M21 fouls) in the leagues
+# and the UEFA cups, per key "<scope>.<key>": each limit is the key's hindsight gain, the same
+# candidate fitted in-sample (its slopes and tilt too) on the season it scores, measured on
+# 2017-2018 (the hindsight measure), with the floors of
+# [alarm.count] and [alarm.joint_count] and a joint key at least twice its team key. A ceiling:
+# no forecast made before the kick-off can honestly beat it, so it stops gross leaks only. A key
+# whose gain exceeds `warn_share` of its limit is flagged in the verdict without stopping it and
+# is reviewed with its explanation before any release; each key's gain is reported as a share
+# of its limit; the run asserts that every input it reads for a match was known before that
+# match's forecast time, and fails if not. M15 and M17 in the cups keep [alarm.count] and
+# [alarm.joint_count]. Approved on 31 October 2026, before any development run.
+warn_share = 0.5
+"leagues.M20.shots" = 0.2039
+"leagues.M20.shots.team" = 0.2445
+"leagues.M20.shots.sides" = 0.5107
+"leagues.M20.shots_on_target" = 0.1138
+"leagues.M20.shots_on_target.team" = 0.1690
+"leagues.M20.shots_on_target.sides" = 0.3385
+"leagues.M21.fouls" = 0.2099
+"leagues.M21.fouls.team" = 0.1773
+"leagues.M21.fouls.sides" = 0.3613
+"leagues.M19.offsides" = 0.1562
+"leagues.M19.offsides.team" = 0.1459
+"cups.M20.shots" = 0.2617
+"cups.M20.shots.team" = 0.3295
+"cups.M20.shots.sides" = 0.6831
+"cups.M20.shots_on_target" = 0.1782
+"cups.M20.shots_on_target.team" = 0.2544
+"cups.M20.shots_on_target.sides" = 0.5118
+"cups.M21.fouls" = 0.2786
+"cups.M21.fouls.team" = 0.2845
+"cups.M21.fouls.sides" = 0.5877
+"cups.M19.offsides" = 0.1854
+"cups.M19.offsides.team" = 0.2048
+
+[alarm.live_count]
+# the live goals still to come (M3.goals.to_come, a count scored by the ranked probability score),
+# family C's chain v2 against the published 2.0.2 chain: the 2.0.2 chain's whole gain over the
+# Poisson on the time left was 0.0204 at minute 85 and 0.0008 at minute 15; the run of play
+# (expected goals and corners so far) can honestly add a fraction of that, so a larger gain at any
+# checkpoint would point at an event from after it read early. M1.result, M7.next_goal and
+# M4.both_score live keep [alarm.ordered], [alarm.categorical] and [alarm.binary], against 2.0.2.
+# Approved on 31 October 2026, before any live v2 verdict.
+max_gain = 0.010
+
+[alarm.players]
+# the players family (scorers: P3.scores, P3.first_scorer, P5.assists, P5.scores_or_assists
+# binary; P3.goals count): a player's own rate is most of what is knowable, so a gain over it
+# larger than these would point at the match's own events leaking. Approved on
+# 29 October 2026, before any players verdict.
+max_gain_binary = 0.03
+max_gain_count = 0.05
+# the player thresholds' counts (P1, P2, P7, P8, P14, P16): the reference, a rate per match
+# played, does not know whether he starts, the model does from the lineups' forecast, which can
+# honestly be worth more than 0.05 on shots and fouls (log score about 1.2-1.6). Approved on
+# 31 October 2026, before any thresholds verdict, on one condition: the verdict reports each
+# key's gain split into starters and substitutes, with the minutes from the lineups' forecast
+# alone. P9.booked keeps max_gain_binary.
+max_gain_thresholds = 0.10
+
+# How close a reproduction must come to the reference number to pass (log loss), for
+# the verdict runner (python -m vesta.verdicts): the corrected world holds other matches than the
+# reference's, so not to the bit. Confirmed on 25 October 2026 and
+# fixed before any result on the corrected world: never changed after seeing one; a reproduction
+# that misses is investigated and explained match by match, never retuned to pass.
+[reproduction]
+tolerance = 0.002
+
+# The blind verdicts (python -m vesta.blind_verdicts): the new models on the closed seasons, once,
+# after the development verdicts (the launch decision, 25 October 2026). With two closed
+# seasons the development rule of three seasons improved cannot hold: a model must improve on
+# both. A proposal of Vesta, to confirm before the run.
+[blind]
+min_seasons_improved = 2

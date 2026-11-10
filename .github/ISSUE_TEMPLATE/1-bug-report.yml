@@ -1,0 +1,39 @@
+name: Bug report
+description: The window or the code does not work as it should.
+labels: [bug]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened, and what you expected
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: "1. Open files... 2. Pick italy.serie-a.db.xz 3. Compute forecasts"
+    validations:
+      required: true
+  - type: dropdown
+    id: os
+    attributes:
+      label: Operating system
+      options: [Windows, macOS, Linux]
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: 11footy commit or download date
+  - type: input
+    id: dataset
+    attributes:
+      label: Dataset release and files you opened
+      placeholder: "e.g. 11footy-2026-11-23: italy.serie-a and players"
+  - type: textarea
+    id: output
+    attributes:
+      label: Error message or output
+      description: Paste it as text. Remove your user name and folder paths first.
+      render: text

@@ -1,0 +1,9 @@
+# The leagues whose lineups apply the bans of the rules (`suspensions_by_rule`,
+# `vesta.lineups.model.read_bans`): a banned player is left out of the pool, and the page drops
+# "suspensions not included" for that league. A league goes in only when a declared check of its
+# bans has passed (the ban rule check stopped on 3 November 2026:
+# played-through bans, Ligue 1 worse). Empty: no league applies bans. Plan (a)
+# (the four leagues' bans) passed on 3 November 2026 for the
+# four leagues below; its forward judgement, in the first week of February 2027, keeps or removes
+# each. Ligue 1 waits for plan (b).
+competitions = ["BL", "LL", "PL", "SA"]

@@ -1,0 +1,264 @@
+# The formats of the UEFA cups and the national tournaments for the season simulation (step 5,
+# `vesta.season.tournament`): the phase before the knockout, the bracket rule that builds the
+# knockout from its places (`vesta.season.brackets`), and the knockout rounds with their legs, the
+# last the final. A competition and season without a format here is refused, never assumed. The
+# order of each phase's table is the competition's row of `tie-break-rules.csv`.
+
+[[format]]
+competitions = ["CL", "EL", "ECL"]
+first_season = 2024
+last_season = 2099
+phase = "league_phase"
+advance = { round_of_16 = [1, 8], knockout_play_offs = [9, 24] }
+bracket = "uefa_league_phase_2024"
+# the bracket from the round of 16 to the final is set by one draw before the round of 16 is
+# played: once a match of that round has kicked off, the world's pairings are the tree
+fixed_from = "round_of_16"
+rounds = [["knockout_play_offs", 2], ["round_of_16", 2], ["quarter_finals", 2],
+          ["semi_finals", 2], ["final", 1]]
+source = "UEFA competition regulations from 2024-25 (to confirm)"
+
+[[format]]
+competitions = ["CL"]
+first_season = 2014
+last_season = 2018
+phase = "group_stage"
+advance = { round_of_16 = [1, 2] }
+bracket = "group_winners_v_runners_up"
+rounds = [["round_of_16", 2], ["quarter_finals", 2], ["semi_finals", 2], ["final", 1]]
+source = "UEFA Champions League regulations 2014-15 to 2023-24 (to confirm)"
+
+# 2019-20: the quarter-finals on single matches in Lisbon (August 2020), the format the world's
+# matches show; Art. 13.08 of the 2019/20 regulations lets UEFA play a tie in one leg
+[[format]]
+competitions = ["CL"]
+first_season = 2019
+last_season = 2019
+phase = "group_stage"
+advance = { round_of_16 = [1, 2] }
+bracket = "group_winners_v_runners_up"
+rounds = [["round_of_16", 2], ["quarter_finals", 1], ["semi_finals", 1], ["final", 1]]
+neutral_rounds = ["quarter_finals", "semi_finals"]
+source = "UEFA Champions League regulations 2019/20 Art. 13.08 and 15-19, read 2026-10-31; the final eight from the world's matches"
+
+[[format]]
+competitions = ["CL"]
+first_season = 2020
+last_season = 2023
+phase = "group_stage"
+advance = { round_of_16 = [1, 2] }
+bracket = "group_winners_v_runners_up"
+rounds = [["round_of_16", 2], ["quarter_finals", 2], ["semi_finals", 2], ["final", 1]]
+source = "UEFA Champions League regulations 2014-15 to 2023-24 (to confirm)"
+
+# The Europa League of 48 clubs: the CL's eight thirds join the round of 32, its four best seeded
+# with the group winners (ranked by the CL's Art. 16.04: points, goal difference, goals for, then
+# away goals, wins, away wins, discipline and the coefficient, here as lots)
+[[format]]
+competitions = ["EL"]
+first_season = 2019
+last_season = 2019
+phase = "group_stage"
+advance = { round_of_32 = [1, 2] }
+drop_in = { from = "CL", place = 3, seeded = 4, ranking = "points|goal_difference|goals_for|lots" }
+bracket = "uefa_round_of_32"
+rounds = [["round_of_32", 2], ["round_of_16", 2], ["quarter_finals", 1], ["semi_finals", 1],
+          ["final", 1]]
+neutral_rounds = ["quarter_finals", "semi_finals"]
+source = "UEFA Europa League regulations 2019/20 Art. 15.03, 17.01-17.06 and the CL's Art. 16.04, read 2026-10-31; the final eight from the world's matches (two ties of the round of 16 single matches in August 2020, here two legs)"
+
+[[format]]
+competitions = ["EL"]
+first_season = 2020
+last_season = 2020
+phase = "group_stage"
+advance = { round_of_32 = [1, 2] }
+drop_in = { from = "CL", place = 3, seeded = 4, ranking = "points|goal_difference|goals_for|lots" }
+bracket = "uefa_round_of_32"
+rounds = [["round_of_32", 2], ["round_of_16", 2], ["quarter_finals", 2], ["semi_finals", 2],
+          ["final", 1]]
+source = "UEFA Europa League regulations 2019/20 Art. 15.03, 17.01-17.06, read 2026-10-31; 2020/21 the same format, as the world's matches show"
+
+# The group stages of 2021-22 to 2023-24: the runners-up meet the higher cup's thirds in the
+# knockout round play-offs, the group winners the play-offs' winners in the round of 16
+[[format]]
+competitions = ["EL"]
+first_season = 2021
+last_season = 2023
+phase = "group_stage"
+advance = { round_of_16 = [1, 1], knockout_play_offs = [2, 2] }
+drop_in = { from = "CL", place = 3 }
+bracket = "uefa_knockout_play_offs"
+rounds = [["knockout_play_offs", 2], ["round_of_16", 2], ["quarter_finals", 2],
+          ["semi_finals", 2], ["final", 1]]
+source = "UEFA Europa League regulations 2021/22 Art. 15.03, 17-19, read 2026-10-31; 2022/23 and 2023/24 the same cycle"
+
+[[format]]
+competitions = ["ECL"]
+first_season = 2021
+last_season = 2023
+phase = "group_stage"
+advance = { round_of_16 = [1, 1], knockout_play_offs = [2, 2] }
+drop_in = { from = "EL", place = 3 }
+bracket = "uefa_knockout_play_offs"
+rounds = [["knockout_play_offs", 2], ["round_of_16", 2], ["quarter_finals", 2],
+          ["semi_finals", 2], ["final", 1]]
+source = "UEFA Europa Conference League regulations 2022/23 and 2023/24 Art. 15.03, 17-19, read 2026-10-31; 2021/22 the same cycle"
+
+[[format]]
+competitions = ["WC"]
+first_season = 2014
+last_season = 2022
+phase = "group_stage"
+advance = { round_of_16 = [1, 2] }
+bracket = "world_cup_32"
+rounds = [["round_of_16", 1], ["quarter_finals", 1], ["semi_finals", 1], ["final", 1]]
+source = "FIFA World Cup regulations 2014, 2018, 2022 (to confirm)"
+
+[[format]]
+competitions = ["ASIAN"]
+first_season = 2027
+last_season = 2027
+phase = "group_stage"
+advance = { round_of_16 = [1, 3] }
+best_thirds = 4
+thirds_ranking = "points|goal_difference|goals_for|lots"
+hosts = ["Saudi Arabia"]
+bracket = "afc_asian_cup_2027"
+rounds = [["round_of_16", 1], ["quarter_finals", 1], ["semi_finals", 1], ["final", 1]]
+source = "AFC Asian Cup Saudi Arabia 2027 Competition Regulations art. 9.2-9.12 and the AFC Competition Operations Manual 2026 Appendix 2, read 2026-10-25: 24 teams in six groups of four, the first two and the four best thirds (points, goal difference, goals for, the card score here as lots) to the round of 16, no third-place match"
+
+[[format]]
+competitions = ["UNL"]
+first_season = 2026
+last_season = 2026
+phase = "group_stage"
+advance = { quarter_finals = [1, 2] }
+bracket = "group_winners_v_runners_up"
+rounds = [["quarter_finals", 2], ["semi_finals", 1], ["final", 1]]
+source = "Regulations of the UEFA Nations League 2026/27 art. 17, read 2026-10-25: League A's group winners drawn against runners-up of another group, two legs with the runner-up at home first; the semi-finals drawn, single matches; the third-place match reaches no round"
+
+# The nations' tournaments judged by T6, each from its regulations read on 31 October 2026.
+# Every knockout match is a
+# single match on neutral ground; a host plays at home by its venue's country (the plan's
+# amendment), through the strength, not the format.
+
+[[format]]
+competitions = ["AFCON"]
+first_season = 2021
+last_season = 2025
+phase = "group_stage"
+advance = { round_of_16 = [1, 3] }
+best_thirds = 4
+thirds_ranking = "points|goal_difference|goals_for|lots"
+bracket = "fixed"
+first_round = ["1D-3>1D", "2A-2C", "1A-3>1A", "2B-2F", "1B-3>1B", "1C-3>1C", "1E-2D", "1F-2E"]
+later = [[[2, 1], [4, 3], [7, 6], [5, 8]], [[1, 4], [3, 2]], [[1, 2]]]
+thirds_table = "six_groups"
+rounds = [["round_of_16", 1], ["quarter_finals", 1], ["semi_finals", 1], ["final", 1]]
+source = "Regulations of the Africa Cup of Nations art. 75.1-75.9, read 2026-10-31; the four best thirds by art. 75.4, their opponents by the table of art. 75.6"
+
+[[format]]
+competitions = ["ASIAN"]
+first_season = 2023
+last_season = 2023
+phase = "group_stage"
+advance = { round_of_16 = [1, 3] }
+best_thirds = 4
+thirds_ranking = "points|goal_difference|goals_for|lots"
+bracket = "afc_asian_cup_2027"
+rounds = [["round_of_16", 1], ["quarter_finals", 1], ["semi_finals", 1], ["final", 1]]
+source = "AFC Asian Cup 2023 Competition Regulations art. 9.5-9.13, read 2026-10-31: the round of 16, its table of thirds and the later rounds as 2027's; the best thirds' order is the AFC Manual's Appendix 2, read here in its 2026 edition (the 2023 Manual not read)"
+
+[[format]]
+competitions = ["COPA"]
+first_season = 2019
+last_season = 2019
+phase = "group_stage"
+advance = { quarter_finals = [1, 3] }
+best_thirds = 2
+thirds_ranking = "points|goal_difference|goals_for|lots"
+bracket = "fixed"
+first_round = ["1A-3>1A", "1B-2C", "2A-2B", "1C-3>1C"]
+later = [[[1, 3], [2, 4]], [[1, 2]]]
+thirds_table = "copa_2019"
+rounds = [["quarter_finals", 1], ["semi_finals", 1], ["final", 1]]
+source = "Reglamento CONMEBOL Copa América Brasil 2019 Art. 16.5, 17-19, read 2026-10-31: three groups of four, the first two and the two best thirds (their order by the group criteria a) to c), then lots: the regulation names none)"
+
+[[format]]
+competitions = ["COPA"]
+first_season = 2020
+last_season = 2020
+phase = "group_stage"
+advance = { quarter_finals = [1, 4] }
+bracket = "fixed"
+first_round = ["2A-3B", "1A-4B", "2B-3A", "1B-4A"]
+later = [[[2, 1], [4, 3]], [[1, 2]]]
+rounds = [["quarter_finals", 1], ["semi_finals", 1], ["final", 1]]
+source = "Reglamento CONMEBOL Copa América 2021 Art. 10.5, 11-13, read 2026-10-31: two groups of five, the first four to the quarter-finals; the semi-final pairings from its schedule (the winners of matches 22 and 21, of 24 and 23), checked against the world's 2021 semi-finals"
+
+[[format]]
+competitions = ["COPA"]
+first_season = 2024
+last_season = 2024
+phase = "group_stage"
+advance = { quarter_finals = [1, 2] }
+bracket = "fixed"
+first_round = ["1A-2B", "1B-2A", "1C-2D", "1D-2C"]
+later = [[[1, 2], [3, 4]], [[1, 2]]]
+rounds = [["quarter_finals", 1], ["semi_finals", 1], ["final", 1]]
+source = "CONMEBOL Copa América 2024 Reglamento (V4) Art. 19-20, read 2026-10-31"
+
+[[format]]
+competitions = ["GOLD"]
+first_season = 2019
+last_season = 2019
+phase = "group_stage"
+advance = { quarter_finals = [1, 2] }
+bracket = "fixed"
+first_round = ["1A-2B", "1B-2A", "1C-2D", "1D-2C"]
+later = [[[2, 1], [4, 3]], [[1, 2]]]
+rounds = [["quarter_finals", 1], ["semi_finals", 1], ["final", 1]]
+source = "Concacaf Gold Cup 2019 Regulations art. 12.5, read 2026-10-31"
+
+[[format]]
+competitions = ["GOLD"]
+first_season = 2021
+last_season = 2025
+phase = "group_stage"
+advance = { quarter_finals = [1, 2] }
+bracket = "fixed"
+first_round = ["1D-2A", "1A-2D", "1C-2B", "1B-2C"]
+later = [[[1, 4], [2, 3]], [[1, 2]]]
+rounds = [["quarter_finals", 1], ["semi_finals", 1], ["final", 1]]
+source = "Concacaf Gold Cup Regulations 2021 art. 12.10, 2023 art. 12.10-12.11, 2025 art. 12.9-12.10, read 2026-10-31"
+
+[[format]]
+competitions = ["EURO"]
+first_season = 2020
+last_season = 2020
+phase = "group_stage"
+advance = { round_of_16 = [1, 3] }
+best_thirds = 4
+thirds_ranking = "points|goal_difference|goals_for|wins|lots"
+bracket = "fixed"
+first_round = ["1B-3>1B", "1A-2C", "1F-3>1F", "2D-2E", "1E-3>1E", "1D-2F", "1C-3>1C", "2A-2B"]
+later = [[[1, 2], [3, 4], [5, 6], [7, 8]], [[1, 2], [3, 4]], [[1, 2]]]
+thirds_table = "euro_24"
+rounds = [["round_of_16", 1], ["quarter_finals", 1], ["semi_finals", 1], ["final", 1]]
+source = "Regulations of the UEFA European Football Championship 2018-20, amended 2020, Art. 21.03-21.08, read 2026-10-31; discipline and the qualifiers' ranking of 21.03 as lots"
+
+[[format]]
+competitions = ["EURO"]
+first_season = 2024
+last_season = 2024
+phase = "group_stage"
+advance = { round_of_16 = [1, 3] }
+best_thirds = 4
+thirds_ranking = "points|goal_difference|goals_for|wins|lots"
+bracket = "fixed"
+first_round = ["1B-3>1B", "1A-2C", "1F-3>1F", "2D-2E", "1E-3>1E", "1D-2F", "1C-3>1C", "2A-2B"]
+later = [[[1, 2], [3, 4], [5, 6], [7, 8]], [[1, 2], [3, 4]], [[1, 2]]]
+thirds_table = "euro_24"
+rounds = [["round_of_16", 1], ["quarter_finals", 1], ["semi_finals", 1], ["final", 1]]
+source = "Regulations of the UEFA European Football Championship 2022-24 Art. 21.03-21.08, read 2026-10-31"

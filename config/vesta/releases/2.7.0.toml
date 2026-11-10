@@ -1,0 +1,76 @@
+# The release of vesta-2.7.0: the parts of 2.6.0 unchanged, and in the season part the five leagues'
+# windows of family B (roadmap: streaks, next k matches), from 5 rounds on: each club's points,
+# wins, losses and goals over its next 3 and next 5 league matches (T12.*.next3, .next5), the
+# matches to its next loss and to its next clean sheet (T12.next_loss, T12.next_clean_sheet), and
+# its season's longest winning streak, longest unbeaten run and whether it loses three in a row
+# (T3). The 13 keys read league matches only (family B in writing, 1 November 2026), passed
+# development (2026-10-31-season-family-windows-development.md, the T12.wins.next3 alarm cleared
+# as understood) and blind once (2026-10-31-season-family-windows-blind.md,
+# 2 of 2), written by the season job (`vesta.season.league_job`). Held: T12.clean_sheets.next3 and
+# .next5 (not passed blind), T3.unbeaten_at_home (not passed); T13.goals.next_30_days (it reads the
+# cups matrix: passed development and blind again on 2.6.0's, published only after its forward
+# guard, `2026-11-01-season-family-t13-forward-guard-plan.md`); the cups' windows wait for a cups
+# season job. The cups stay pre-match in this release.
+version = "2.7.0"
+verdict_id = "2026-10-28-verdicts.md; 2026-10-28-blind-verdicts.md; 2026-10-25-verdicts-findings.md (the cups' 2019-20 miss); 2026-10-28-season-development.md; 2026-10-28-season-blind.md with 2026-10-28-season-alarm-check.md; 2026-10-29-team-counts-development-candidate-2.md with 2026-10-29-team-counts-alarm-check.md; 2026-10-29-team-counts-blind.md; 2026-10-29-lineups-development.md with 2026-10-29-lineups-alarm-check.md; 2026-10-29-lineups-blind.md; 2026-10-30-scorers-development.md; 2026-10-30-scorers-blind.md; 2026-10-31-player-thresholds-development.md; 2026-10-31-player-thresholds-blind.md; 2026-10-31-player-thresholds-development-candidate-2.md; 2026-10-31-player-thresholds-blind-candidate-2.md; 2026-10-31-cups-ninety-minutes-development.md; 2026-10-31-live-v2-development.md; 2026-10-31-live-v2-blind.md; 2026-10-31-team-counts-leagues-development.md; 2026-10-31-team-counts-cups-development.md; 2026-10-31-team-counts-leagues-blind.md; 2026-10-31-team-counts-cups-blind.md; 2026-10-31-team-counts-leagues-development-candidate-2.md; 2026-10-31-team-counts-cups-development-candidate-2.md; 2026-10-31-team-counts-leagues-blind-candidate-2.md; 2026-10-31-team-counts-cups-blind-candidate-2.md; 2026-10-31-cups-elo-leak-recheck.md; 2026-10-31-season-family-streaks-plan.md; 2026-10-31-season-family-windows-development.md; 2026-10-31-season-family-windows-blind.md"
+what_changed = "each club's next 3 and next 5 league matches (points, wins, losses, goals), the matches to its next loss and to its next clean sheet, and its season's streaks: the longest winning and unbeaten runs, three defeats in a row"
+
+[[part]]
+family_member = "spine"
+competitions = ["PL", "LL", "SA", "BL", "L1"]
+keys = ["M1.result", "M2.score", "M3.goals", "M4.both_score", "M5.goals.team"]
+live = true
+
+[[part]]
+family_member = "spine"
+competitions = ["CL", "EL", "ECL", "CLQ", "ELQ", "ECLQ"]
+keys = ["M1.result", "M2.score", "M3.goals", "M4.both_score", "M5.goals.team"]
+live = false
+
+[[part]]
+family_member = "goals in time"
+competitions = ["PL", "LL", "SA", "BL", "L1"]
+keys = ["M10.result.second_half", "M10.score.second_half", "M11.comes_from_behind_to_win.team", "M11.leads_at_half_time_and_wins.team", "M11.scores_in_both_halves.team", "M11.wins_both_halves.team", "M11.wins_either_half.team", "M12.both_halves_over.line=0.5", "M12.both_halves_over.line=1.5", "M12.goals.first_half", "M13.first_goal_method", "M7.first_goal", "M7.last_goal", "M8.first_goal_time", "M8.goal_in_band.band=16-30", "M8.goal_in_band.band=31-45", "M8.goal_in_band.band=76-90", "M8.goal_in_band.band=81-90", "M9.half_time_full_time", "M9.result.first_half", "M9.score.first_half"]
+live = true
+
+[[part]]
+family_member = "live chain"
+competitions = ["PL", "LL", "SA", "BL", "L1"]
+keys = ["M7.next_goal"]
+live = true
+
+[[part]]
+family_member = "season"
+competitions = ["PL", "LL", "SA", "BL", "L1"]
+keys = ["T1.final_position", "T1.points", "T12.points.next3", "T12.wins.next3", "T12.losses.next3", "T12.goals.next3", "T12.points.next5", "T12.wins.next5", "T12.losses.next5", "T12.goals.next5", "T12.next_loss", "T12.next_clean_sheet", "T3.longest_winning_streak", "T3.longest_unbeaten_run", "T3.loses_three_in_a_row"]
+live = false
+
+[[part]]
+family_member = "team counts"
+competitions = ["PL", "LL", "SA", "BL", "L1"]
+keys = ["M15.corners.team", "M15.corners.sides", "M17.cards", "M17.cards.team", "M17.cards.sides", "M20.shots", "M20.shots.team", "M20.shots.sides", "M20.shots_on_target", "M20.shots_on_target.team", "M20.shots_on_target.sides", "M21.fouls", "M21.fouls.team", "M21.fouls.sides", "M19.offsides", "M19.offsides.team"]
+live = false
+
+[[part]]
+family_member = "team counts"
+competitions = ["CL", "EL", "ECL"]
+keys = ["M20.shots", "M20.shots.team", "M20.shots.sides", "M20.shots_on_target.team", "M20.shots_on_target.sides", "M21.fouls", "M21.fouls.team", "M21.fouls.sides", "M15.corners", "M15.corners.team", "M17.cards", "M17.cards.sides", "M19.offsides", "M19.offsides.team"]
+live = false
+
+[[part]]
+family_member = "team counts"
+competitions = ["CLQ", "ELQ", "ECLQ"]
+keys = ["M20.shots", "M20.shots.team", "M20.shots.sides", "M20.shots_on_target.team", "M20.shots_on_target.sides", "M15.corners", "M15.corners.team", "M19.offsides", "M19.offsides.team"]
+live = false
+
+[[part]]
+family_member = "lineups"
+competitions = ["PL", "LL", "SA", "BL", "L1"]
+keys = ["L1.starts", "L6.minutes", "L9.position", "L2.formation.team"]
+live = false
+
+[[part]]
+family_member = "players"
+competitions = ["PL", "LL", "SA", "BL", "L1"]
+keys = ["P3.scores", "P3.goals", "P3.first_scorer", "P5.assists", "P5.scores_or_assists", "P1.shots", "P2.shots_on_target", "P7.key_passes", "P8.fouls", "P8.fouls_drawn", "P9.booked", "P14.saves", "P16.offsides"]
+live = false

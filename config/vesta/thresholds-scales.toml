@@ -1,0 +1,12 @@
+# The player thresholds' candidate 2 scales (their plan,
+# candidate 2): per season, for saves and offsides, the ratio of what happened to what candidate 1
+# expected on the two seasons before it. Fitted once, before the season's publication, by
+#   python -m vesta.players.thresholds_verdict <world> --candidate 2
+#       --keys P14.saves P16.offsides --scales-for <season>
+# and never changed during the season. A season missing here publishes neither key.
+
+# fitted on 1 November 2026 on worlds/football-world-f6db67ea-20261101.db (sha256 85e52741...38f0),
+# seasons 2024 and 2025
+[2026]
+"P14.saves" = 0.919913
+"P16.offsides" = 0.959392

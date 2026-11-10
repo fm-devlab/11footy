@@ -1,0 +1,26 @@
+# Environment
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+.coverage
+
+# Editor and OS
+.vscode/
+.idea/
+Thumbs.db
+.DS_Store
+
+# Secrets
+.env
+.env.*
+*.key
+*.pem
+
+# Everything the code produces (rebuilt by a command)
+artifacts/
+
+# Your own forecast log
+forecast-log/

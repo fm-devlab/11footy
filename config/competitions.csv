@@ -1,0 +1,43 @@
+code,name,country,kind,tier
+PL,Premier League,England,league,1
+ELC,EFL Championship,England,league,2
+LL,La Liga,Spain,league,1
+LL2,Segunda División,Spain,league,2
+SA,Serie A,Italy,league,1
+SB,Serie B,Italy,league,2
+BL,Bundesliga,Germany,league,1
+BL2,2. Bundesliga,Germany,league,2
+L1,Ligue 1,France,league,1
+L2,Ligue 2,France,league,2
+CL,UEFA Champions League,Europe,cup,
+CLQ,UEFA Champions League qualifying,Europe,cup qualifying,
+EL,UEFA Europa League,Europe,cup,
+ELQ,UEFA Europa League qualifying,Europe,cup qualifying,
+UC,UEFA Cup,Europe,cup,
+ECL,UEFA Conference League,Europe,cup,
+ECLQ,UEFA Conference League qualifying,Europe,cup qualifying,
+USC,UEFA Super Cup,Europe,super cup,
+WC,FIFA World Cup,World,nations tournament,
+WCQ,FIFA World Cup qualifying,World,nations qualifying,
+WCQ_UEFA,FIFA World Cup qualifying (UEFA),Europe,nations qualifying,
+WCQ_CONMEBOL,FIFA World Cup qualifying (CONMEBOL),South America,nations qualifying,
+EURO,UEFA European Championship,Europe,nations tournament,
+EUROQ,UEFA European Championship qualifying,Europe,nations qualifying,
+UNL,UEFA Nations League,Europe,nations league,
+COPA,Copa América,South America,nations tournament,
+AFCON,Africa Cup of Nations,Africa,nations tournament,
+FRIENDLY,International friendlies,World,friendly,
+WCQ_CONCACAF,FIFA World Cup qualifying (CONCACAF),North and Central America,nations qualifying,
+WCQ_AFC,FIFA World Cup qualifying (AFC),Asia,nations qualifying,
+WCQ_CAF,FIFA World Cup qualifying (CAF),Africa,nations qualifying,
+WCQ_OFC,FIFA World Cup qualifying (OFC),Oceania,nations qualifying,
+AFCONQ,Africa Cup of Nations qualifying,Africa,nations qualifying,
+ASIAN,AFC Asian Cup,Asia,nations tournament,
+ASIANQ,AFC Asian Cup qualifying,Asia,nations qualifying,
+GOLD,CONCACAF Gold Cup,North and Central America,nations tournament,
+GOLDQ,CONCACAF Gold Cup qualifying,North and Central America,nations qualifying,
+CNL,CONCACAF Nations League,North and Central America,nations league,
+CNLQ,CONCACAF Nations League qualifying,North and Central America,nations qualifying,
+CONFED,FIFA Confederations Cup,World,nations tournament,
+COSAFA,COSAFA Cup,Southern Africa,nations tournament,
+AFF,AFF Championship,Southeast Asia,nations tournament,

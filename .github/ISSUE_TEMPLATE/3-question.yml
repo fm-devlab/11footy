@@ -1,0 +1,15 @@
+name: Question
+description: How Vesta forecasts, or how to read the track record. Discussions work too.
+labels: [question]
+body:
+  - type: textarea
+    id: question
+    attributes:
+      label: Your question
+    validations:
+      required: true
+  - type: input
+    id: match
+    attributes:
+      label: The match or competition it is about, if any
+      placeholder: "e.g. Serie A, 2026-11-22"

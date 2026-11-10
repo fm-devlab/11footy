@@ -1,0 +1,23 @@
+# The release of vesta-2.0.1, written by `python -m vesta.release_plan` from
+# 2026-10-28-verdicts.md and 2026-10-28-blind-verdicts.md: exactly the keys that passed.
+version = "2.0.1"
+verdict_id = "2026-10-28-verdicts.md; 2026-10-28-blind-verdicts.md"
+what_changed = "Vesta v2: the keys whose verdicts passed on the world of the reports"
+
+[[part]]
+family_member = "spine"
+competitions = ["PL", "LL", "SA", "BL", "L1"]
+keys = ["M1.result", "M2.score", "M3.goals", "M4.both_score", "M5.goals.team"]
+live = true
+
+[[part]]
+family_member = "goals in time"
+competitions = ["PL", "LL", "SA", "BL", "L1"]
+keys = ["M10.result.second_half", "M10.score.second_half", "M11.comes_from_behind_to_win.team", "M11.leads_at_half_time_and_wins.team", "M11.scores_in_both_halves.team", "M11.wins_both_halves.team", "M11.wins_either_half.team", "M12.both_halves_over.line=0.5", "M12.both_halves_over.line=1.5", "M12.goals.first_half", "M13.first_goal_method", "M7.first_goal", "M7.last_goal", "M8.first_goal_time", "M8.goal_in_band.band=16-30", "M8.goal_in_band.band=31-45", "M8.goal_in_band.band=76-90", "M8.goal_in_band.band=81-90", "M9.half_time_full_time", "M9.result.first_half", "M9.score.first_half"]
+live = true
+
+[[part]]
+family_member = "live chain"
+competitions = ["PL", "LL", "SA", "BL", "L1"]
+keys = ["M7.next_goal"]
+live = true

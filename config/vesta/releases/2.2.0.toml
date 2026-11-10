@@ -1,0 +1,39 @@
+# The release of vesta-2.2.0: the parts of 2.1.0 unchanged, and team counts (step 6), pre-match:
+# the keys whose verdicts passed in development (candidate 2,
+# 2026-10-29-team-counts-development-candidate-2.md; the corners sides' alarm cleared by
+# 2026-10-29-team-counts-alarm-check.md, accepted) and blind once
+# (2026-10-29-team-counts-blind.md, both closed seasons). The corners of the match (M15.corners)
+# fails calibration and stays out.
+version = "2.2.0"
+verdict_id = "2026-10-28-verdicts.md; 2026-10-28-blind-verdicts.md; 2026-10-28-season-development.md; 2026-10-28-season-blind.md with 2026-10-28-season-alarm-check.md; 2026-10-29-team-counts-development-candidate-2.md with 2026-10-29-team-counts-alarm-check.md; 2026-10-29-team-counts-blind.md"
+what_changed = "team counts before the match: each side's corners, which side has more, the cards of the match and of each side, which side has more"
+
+[[part]]
+family_member = "spine"
+competitions = ["PL", "LL", "SA", "BL", "L1"]
+keys = ["M1.result", "M2.score", "M3.goals", "M4.both_score", "M5.goals.team"]
+live = true
+
+[[part]]
+family_member = "goals in time"
+competitions = ["PL", "LL", "SA", "BL", "L1"]
+keys = ["M10.result.second_half", "M10.score.second_half", "M11.comes_from_behind_to_win.team", "M11.leads_at_half_time_and_wins.team", "M11.scores_in_both_halves.team", "M11.wins_both_halves.team", "M11.wins_either_half.team", "M12.both_halves_over.line=0.5", "M12.both_halves_over.line=1.5", "M12.goals.first_half", "M13.first_goal_method", "M7.first_goal", "M7.last_goal", "M8.first_goal_time", "M8.goal_in_band.band=16-30", "M8.goal_in_band.band=31-45", "M8.goal_in_band.band=76-90", "M8.goal_in_band.band=81-90", "M9.half_time_full_time", "M9.result.first_half", "M9.score.first_half"]
+live = true
+
+[[part]]
+family_member = "live chain"
+competitions = ["PL", "LL", "SA", "BL", "L1"]
+keys = ["M7.next_goal"]
+live = true
+
+[[part]]
+family_member = "season"
+competitions = ["PL", "LL", "SA", "BL", "L1"]
+keys = ["T1.final_position", "T1.points"]
+live = false
+
+[[part]]
+family_member = "team counts"
+competitions = ["PL", "LL", "SA", "BL", "L1"]
+keys = ["M15.corners.team", "M15.corners.sides", "M17.cards", "M17.cards.team", "M17.cards.sides"]
+live = false

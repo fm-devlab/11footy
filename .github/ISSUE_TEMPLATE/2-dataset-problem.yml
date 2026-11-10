@@ -1,0 +1,30 @@
+name: Dataset problem
+description: A dataset file does not open, fails its check, or the window reads it wrongly.
+labels: [data]
+body:
+  - type: markdown
+    attributes:
+      value: >
+        A wrong football fact (a score, a scorer, a date) is a data correction: please open it
+        in the 11footy-dataset repository instead.
+  - type: input
+    id: release
+    attributes:
+      label: Dataset release
+      placeholder: "e.g. 11footy-2026-11-23"
+    validations:
+      required: true
+  - type: input
+    id: files
+    attributes:
+      label: Files you opened
+      placeholder: "e.g. 11footy.db.xz, or italy.serie-a.db.xz and players.db.xz"
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What the window says, and what you expected
+      description: Paste messages as text. Remove your user name and folder paths first.
+    validations:
+      required: true

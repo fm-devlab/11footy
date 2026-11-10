@@ -1,0 +1,64 @@
+# The registry of Vesta's hypotheses (src/vesta/research/README.md §1).
+# An entry is written and committed before it is run; the runner refuses an entry that is not in
+# the committed file. Entries are never removed: a discarded hypothesis keeps its entry and its
+# verdict. Fields:
+#   id                 H<number>, never reused
+#   family_member      spine, team counts, live chain, lineups, player counts, season, nations, cups
+#   title              one line
+#   change             what changes against the published model, and why it should help
+#   catalogue_ids      the catalogue items it moves, ["M1", "M2"]
+#   distribution_kind  the kind its deciding metric is measured on
+#   metric             the deciding metric (default: the first of its kind, research/scores.py)
+#   expected_gain      the gain expected on the deciding metric, written before the run
+#   grid               the configurations of its inner grid, at most [verdict] grid_max
+#   data               the world tables it reads
+#   registered_on      the date it was written
+#   alarm_cleared_by   (only after an alarm) the research record that explains it
+
+[[hypothesis]]
+id = "H1"
+family_member = "goals in time"
+title = "Ties: extra time's pace and the shoot-out's home share fitted on the training ties"
+change = "The ties step (vesta.spine.ties) uses extra_time_pace = 1.0 and shootout_home_share = 0.5, the config's first values, which [ties] says are fitted on the data before the verdict; the development verdict of 25 October 2026 found the chance of going through miscalibrated (0.0550 against the reference's 0.0335). The candidate fits both on the ties of the seasons before each season forecast: the pace as the extra-time goals over what the deciding match's intensities expect in 30 minutes, the home share as the shoot-outs won by the home side of the deciding match (each counted half a time more). Fewer goals in extra time and an even shoot-out should lower the chance given to the favourite when a tie is level."
+catalogue_ids = ["M14"]
+distribution_kind = "binary"
+metric = "log_loss"
+expected_gain = 0.003
+data = ["match_ties", "matches", "match_events", "penalty_shootouts"]
+registered_on = "2026-10-26"
+
+[[hypothesis]]
+id = "H2"
+family_member = "goals in time"
+title = "Goals in time: the minute of a goal within its half follows the chain's fitted profile"
+change = "The goals-in-time population (vesta.spine.goals_in_time) places a goal uniformly on the playing time of its half; the development verdict found four bands of M8.goal_in_band miscalibrated (16-30, 31-45, 61-75, 76-90). The candidate places it by the live chain's time profile fitted on the same [timing] seasons (goals come more often late in each half), the half itself and the added time unchanged, so the halves' keys are untouched and the bands follow the minutes the data show."
+catalogue_ids = ["M8"]
+distribution_kind = "binary"
+metric = "log_loss"
+expected_gain = 0.001
+data = ["matches", "match_events"]
+registered_on = "2026-10-26"
+
+[[hypothesis]]
+id = "H3"
+family_member = "goals in time"
+title = "Goals in time: each side's first-half share by its own pre-match expected goals"
+change = "The population gives each side one first-half share for every match (fitted on the training half-time scores); M10.highest_scoring_half's interval crossed zero in the development verdict. The candidate fits each side's share in three bands of its pre-match expected goals (below 1.0, 1.0 to 1.8, above 1.8) on the training seasons, as a strong side's goals may come later once the opponent tires and a weak side's earlier: the halves' balance would then follow the match."
+catalogue_ids = ["M10"]
+distribution_kind = "categorical"
+metric = "log_loss"
+expected_gain = 0.001
+data = ["matches"]
+registered_on = "2026-10-26"
+
+[[hypothesis]]
+id = "H4"
+family_member = "spine"
+title = "The spine at lineup time: the player ratings read the match's announced eleven"
+change = "The champion's player ratings rate each side by the eleven that started its last match known before the forecast (vesta.spine.player_ratings), never the sheet of the match itself. At lineup time, about an hour before kick-off, the sheet is out. The candidate rates each side by its announced eleven (historically the world's starting sheet of the match, match_players.started), falling back to the last eleven where a match has no sheet; everything else is the champion's (the weekly fit, the team model, the 0.5 blend, the calibration path), and both are forecast at kick-off minus 60 minutes, so the only difference is the eleven read (docs/research/2026-11-02-lineup-time-plan.md, part 2). A rotated or weakened eleven should move the result's chances as soon as the sheet is out."
+catalogue_ids = ["M1", "M2", "M3", "M4"]
+distribution_kind = "ordered"
+metric = "ranked_probability_score"
+expected_gain = 0.001
+data = ["matches", "match_players", "shots"]
+registered_on = "2026-11-02"

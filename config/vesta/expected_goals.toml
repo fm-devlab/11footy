@@ -1,0 +1,35 @@
+# Our expected goals (src/vesta/expected_goals/). Every number was fixed before any check and
+# never tuned on the seasons it rates; part of the freeze.
+
+[shots]
+competitions = ["PL", "LL", "SA", "BL", "L1"]
+first_season = 2014
+# the shots with coordinates and context of the five leagues: the tracked layer (a shot-by-shot
+# feed, every row with its position and context; docs/VESTA_DATA_FORMAT.md B3)
+layers = ["tracked"]
+
+[walk_forward]
+# from this season on, a season is rated by a model fitted on the seasons before it; the seasons
+# before it are rated by cross-fitting over the two first seasons (a fold = a hash of the match)
+first_forward_season = 2016
+folds = 5
+
+[model]
+# the gradient boosting of the shots outside penalties
+learning_rate = 0.03
+leaves_per_tree = 31
+min_child_samples = 200
+subsample = 0.8
+subsample_freq = 1
+colsample_bytree = 0.8
+reg_lambda = 1.0
+most_trees = 2000
+# the number of trees is chosen on the last season before the one rated, stopping after this
+# many trees without improvement; then the model is refitted on every earlier season with it
+early_stopping_trees = 100
+# the number of trees when there is no season to choose it on
+trees_without_validation = 600
+# the share of penalties scored when the training shots hold no penalty
+penalty_rate_without_penalties = 0.76
+# determinism: one thread, a fixed seed, LightGBM's deterministic mode
+seed = 20261024

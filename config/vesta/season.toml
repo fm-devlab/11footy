@@ -1,0 +1,210 @@
+# Family B (season)'s own configuration.
+
+# The draws of the UEFA cups' qualifying rounds (T4.qualifies.team, vesta.season.cup_qualifiers):
+# the date of each draw from UEFA's published calendars, read 31 October 2026 with their URLs
+# and quotes. A round's ties are
+# known at an instant only when their draw was on an earlier day; a season is the year it starts.
+
+[[qualifying_draws]]
+cup = "CL"
+season = 2019
+round = "Q3"
+date = "2019-07-22"
+
+[[qualifying_draws]]
+cup = "CL"
+season = 2019
+round = "PO"
+date = "2019-08-05"
+
+[[qualifying_draws]]
+cup = "EL"
+season = 2019
+round = "Q3"
+date = "2019-07-22"
+
+[[qualifying_draws]]
+cup = "EL"
+season = 2019
+round = "PO"
+date = "2019-08-05"
+
+[[qualifying_draws]]
+cup = "CL"
+season = 2021
+round = "Q3"
+date = "2021-07-19"
+
+[[qualifying_draws]]
+cup = "CL"
+season = 2021
+round = "PO"
+date = "2021-08-02"
+
+[[qualifying_draws]]
+cup = "EL"
+season = 2021
+round = "Q3"
+date = "2021-07-19"
+
+[[qualifying_draws]]
+cup = "EL"
+season = 2021
+round = "PO"
+date = "2021-08-02"
+
+[[qualifying_draws]]
+cup = "ECL"
+season = 2021
+round = "Q3"
+date = "2021-07-19"
+
+[[qualifying_draws]]
+cup = "ECL"
+season = 2021
+round = "PO"
+date = "2021-08-02"
+
+[[qualifying_draws]]
+cup = "CL"
+season = 2022
+round = "Q3"
+date = "2022-07-18"
+
+[[qualifying_draws]]
+cup = "CL"
+season = 2022
+round = "PO"
+date = "2022-08-02"
+
+[[qualifying_draws]]
+cup = "EL"
+season = 2022
+round = "Q3"
+date = "2022-07-18"
+
+[[qualifying_draws]]
+cup = "EL"
+season = 2022
+round = "PO"
+date = "2022-08-02"
+
+[[qualifying_draws]]
+cup = "ECL"
+season = 2022
+round = "Q3"
+date = "2022-07-18"
+
+[[qualifying_draws]]
+cup = "ECL"
+season = 2022
+round = "PO"
+date = "2022-08-02"
+
+[[qualifying_draws]]
+cup = "CL"
+season = 2023
+round = "Q3"
+date = "2023-07-24"
+
+[[qualifying_draws]]
+cup = "CL"
+season = 2023
+round = "PO"
+date = "2023-08-07"
+
+[[qualifying_draws]]
+cup = "EL"
+season = 2023
+round = "Q3"
+date = "2023-07-24"
+
+[[qualifying_draws]]
+cup = "EL"
+season = 2023
+round = "PO"
+date = "2023-08-07"
+
+[[qualifying_draws]]
+cup = "ECL"
+season = 2023
+round = "Q3"
+date = "2023-07-24"
+
+[[qualifying_draws]]
+cup = "ECL"
+season = 2023
+round = "PO"
+date = "2023-08-07"
+
+[[qualifying_draws]]
+cup = "CL"
+season = 2024
+round = "Q3"
+date = "2024-07-22"
+
+[[qualifying_draws]]
+cup = "CL"
+season = 2024
+round = "PO"
+date = "2024-08-05"
+
+[[qualifying_draws]]
+cup = "EL"
+season = 2024
+round = "Q3"
+date = "2024-07-22"
+
+[[qualifying_draws]]
+cup = "EL"
+season = 2024
+round = "PO"
+date = "2024-08-05"
+
+[[qualifying_draws]]
+cup = "ECL"
+season = 2024
+round = "Q3"
+date = "2024-07-22"
+
+[[qualifying_draws]]
+cup = "ECL"
+season = 2024
+round = "PO"
+date = "2024-08-05"
+
+[[qualifying_draws]]
+cup = "CL"
+season = 2025
+round = "Q3"
+date = "2025-07-21"
+
+[[qualifying_draws]]
+cup = "CL"
+season = 2025
+round = "PO"
+date = "2025-08-04"
+
+[[qualifying_draws]]
+cup = "EL"
+season = 2025
+round = "Q3"
+date = "2025-07-21"
+
+[[qualifying_draws]]
+cup = "EL"
+season = 2025
+round = "PO"
+date = "2025-08-04"
+
+[[qualifying_draws]]
+cup = "ECL"
+season = 2025
+round = "Q3"
+date = "2025-07-21"
+
+[[qualifying_draws]]
+cup = "ECL"
+season = 2025
+round = "PO"
+date = "2025-08-04"

@@ -1,0 +1,6 @@
+# The public key that signs 11footy's dataset releases (OpenSSH allowed-signers format), read by
+# vesta.dataset_proof. One line, made from the maintainers' signing key and committed on
+# main:
+#   11footy-dataset namespaces="11footy-dataset" ssh-ed25519 AAAA...
+# Until it is here, no dataset is proved ours: every file is read as foreign.
+11footy-dataset namespaces="11footy-dataset" ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM0h806SU4aBMZNBfpbgBW7TF9MENd9iChkAsM7SpuC0

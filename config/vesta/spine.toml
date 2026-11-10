@@ -1,0 +1,162 @@
+# The spine's configuration (src/vesta/spine/), fixed before any verdict; part of the freeze.
+
+# When a fact of a match becomes known.
+[time]
+# a result is known this long after the latest possible kick-off
+result_known_after_minutes = 135
+# a match whose clock is not trusted (kickoff_precision = "date") kicked off between these two
+# times of its day, in UTC: a fact hangs on the latest, a forecast on the earliest
+date_only_earliest_utc = "09:00"
+date_only_latest_utc = "23:30"
+
+# The Dixon-Coles model of goals of the baseline B0.
+[dixon_coles]
+# time decay per day (half-life 231 days), chosen on the tuning seasons
+# 2019-20 to 2021-22 among six values
+time_decay_per_day = 0.0030
+# L2 penalty on attack and defence
+ridge = 2.0
+# results older than this, at the fit, are ignored
+window_days = 1100
+# fewer results in the window: the family has no features
+minimum_results = 60
+
+# The walk-forward of the spine.
+[walk_forward]
+# the first season whose matches fit parameters; the one before only feeds the families
+first_training_season = 2015
+# a competition's matrix is calibrated on the matches of this many seasons before the one forecast
+calibration_seasons = 2
+# fewer matches of a competition in those seasons: the neutral matrix is kept
+minimum_calibration_matches = 100
+competitions = ["PL", "LL", "SA", "BL", "L1"]
+
+# The champion's Dixon-Coles.
+[dixon_coles_expected_goals]
+time_decay_per_day = 0.004
+ridge = 4.0
+window_days = 1100
+minimum_results = 60
+# the fit learns 0.8 * our expected goals + 0.2 * goals of each side
+expected_goals_weight = 0.8
+# a club the window has not seen (a promoted club) attacks and defends below the average
+unknown_club_attack = -0.25
+unknown_club_defence = -0.25
+
+# The champion's player ratings.
+[player_ratings]
+time_decay_per_day = 0.003
+ridge = 0.6
+window_days = 1100
+minimum_results = 60
+expected_goals_weight = 0.7
+# the weight of the player ratings in the blend of the two intensities (geometric)
+blend_weight = 0.5
+# the weight of a goalkeeper in the attack side of his team (0: out of the attack)
+goalkeeper_attack_weight = 0.0
+
+# The champion's calibration of the matrix: one for the five leagues together,
+# on the forecasts of this many seasons before the one forecast, with the spread and the dispersion.
+[champion_calibration]
+seasons = 3
+
+# The national teams: World Football Elo with its published constants, then a Poisson on the
+# Elo difference and the venue.
+[nations]
+first_rating = 1500.0
+home_bonus = 100.0
+# the weight K of a match by its competition (codes of config/competitions.csv)
+world_cup_finals = ["WC"]
+world_cup_finals_weight = 60.0
+continental_finals = ["EURO", "COPA", "AFCON", "ASIAN", "GOLD", "CONFED",
+                      "NAT_CONCACAF_CHAMPIONSHIP", "NAT_OCEANIA_NATIONS_CUP"]
+continental_finals_weight = 50.0
+# every competition of kind "nations qualifying" or "nations league"
+qualifiers_and_leagues_weight = 40.0
+friendlies = ["FRIENDLY"]
+friendlies_weight = 20.0
+other_tournaments_weight = 30.0
+# the mapping is fitted on the matches of this many calendar years before the year forecast
+training_years = 8
+# a team with fewer earlier matches has no reliable rating: its matches are neither fitted nor scored
+minimum_matches_played = 10
+
+# The UEFA club cups: one Elo over every match of the five leagues since 2001-02 and of the cups
+# since 2014-15, then a Poisson on the Elo difference, the venue and the qualifying rounds. Chosen
+# on the cup seasons 2015-2018.
+[cups]
+cups = ["CL", "EL", "ECL", "CLQ", "ELQ", "ECLQ"]
+# the Elo updates on the final score, extra time included, while every outcome is the score
+# after 90 minutes (the cups' ninety-minutes plan: variant B)
+elo_on = "final"
+leagues = ["PL", "LL", "SA", "BL", "L1"]
+first_league_season = 2001
+first_cup_season = 2014
+weight = 30.0
+home_advantage = 60.0
+first_rating_of_a_league_club = 1500.0
+# a club outside the five leagues whose country has no rated club yet
+first_rating_of_another_club = 1300.0
+# a promoted club starts at the mean of the three lowest ratings of its league
+promoted_peers = 3
+
+# Goals in time: every match completed in time from its score matrix, a stratified population of
+# simulated matches.
+[goals_in_time]
+simulations = 10000
+minimum_per_score = 16
+seed = 20261025
+# the mean added time of the first and the second half, gamma of shape 4
+added_time_minutes = [2.0, 5.0]
+added_time_shape = 4.0
+# the share of a side's goals in the first half when the training matches hold no half-time score
+first_half_share_without_data = 0.45
+# a goal's minute within its half follows the live chain's profile of the same seasons instead of
+# being even (H2, kept on 26 October 2026)
+minute_weights = "chain_profile"
+
+# Ties (M14, step 3b): extra time and the shoot-out of a knockout match, one leg or two. The
+# rules of a two-legged tie are read per competition and season from config/vesta/tie-rules.csv.
+[ties]
+extra_time_minutes = 30
+# extra time's intensity per minute against the match's (1: the same pace); fitted on the data
+# by the step's check before its verdict
+extra_time_pace = 1.0
+# the home side's chance in a shoot-out; fitted on the data by the step's check before its verdict
+shootout_home_share = 0.5
+
+# The live chain's fit and check.
+[live_chain]
+# (its time profile is fitted on the seasons of [timing], with goals in time)
+# the game-state and red-card effects from this season on (the first with pre-match matrices)
+first_effects_season = 2017
+# where the check reads the chain: (half, minutes elapsed)
+checkpoints = [[1, 15], [1, 30], [2, 45], [2, 60], [2, 75], [2, 85]]
+
+# The timing of goals: the one place its fitting seasons are set (vesta.live.timing), shared by
+# the live chain's time profile and goals in time (first-half shares, manners, and the added time
+# read from the profile), so the two agree at kick-off by construction (25 October
+# 2026).
+[timing]
+# the regular minutes, the first-half shares and the manners from this season on, to the one
+# before the season forecast
+first_season = 2014
+# the added time from the last `recent_seasons` only (added time has grown: second-half
+# added-time goals per match 0.12 in 2014-15, 0.24 in 2025-26)
+recent_seasons = 2
+# the moving mean of the regular minutes of the profile, in minutes
+smoothing_minutes = 3
+
+# The season simulation (step 5): the seasons drawn for every league, cup and tournament.
+[season]
+simulations = 10000
+
+# The series of a live match: the quantities each live minute also writes as rows
+# (forecast log `live_headlines`, schema version 3), with the lines written; a key without
+# series_lines writes every declared line. Approved on 30 October 2026.
+[live]
+series_keys = ["M1.result", "M3.goals", "M4.both_score", "M3.goals.to_come"]
+
+[live.series_lines]
+"M3.goals" = ["over=0.5", "over=1.5", "over=2.5", "over=3.5", "over=4.5", "over=5.5",
+              "under=0.5", "under=1.5", "under=2.5", "under=3.5", "under=4.5", "under=5.5"]
