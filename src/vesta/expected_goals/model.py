@@ -4,14 +4,23 @@ The chance of a shot outside the penalties is a gradient-boosted model of fourte
 and its move; a penalty's chance is the share of penalties scored in the training shots. The
 inputs are built as numbers: the three categories (situation, body part, the action before) as
 their index in a fixed list, so the trees always see the same codes.
+
+LightGBM is imported only where a model is fitted: a user's run reads the dataset's own expected
+goals and never fits one, and on macOS LightGBM needs the system's OpenMP (`brew install libomp`).
 """
 
-from dataclasses import dataclass
+from __future__ import annotations
 
-import lightgbm
+import importlib
+from dataclasses import dataclass
+from typing import TYPE_CHECKING
+
 import numpy as np
 
 from vesta.expected_goals.shots import ShotTable
+
+if TYPE_CHECKING:
+    import lightgbm
 
 PITCH_LENGTH_METRES, PITCH_WIDTH_METRES, GOAL_WIDTH_METRES = 105.0, 68.0, 7.32
 SITUATIONS = ("open_play", "corner", "set_piece", "direct_free_kick", "penalty")
@@ -42,7 +51,7 @@ class ModelSettings:
     seed: int
 
     @classmethod
-    def from_config(cls, expected_goals: dict) -> "ModelSettings":
+    def from_config(cls, expected_goals: dict) -> ModelSettings:
         return cls(**expected_goals["model"])
 
     def to_booster_parameters(self) -> dict:
@@ -112,6 +121,7 @@ def fit(train: ShotTable, validation: ShotTable | None, settings: ModelSettings)
     """A model fitted on `train`. With `validation`, the number of trees is the one where the
     validation shots stop improving, and the model is refitted on train and validation together
     with that number; without, `trees_without_validation`."""
+    lightgbm = _load_lightgbm()
     penalties = train.situation == "penalty"
     penalty_rate = (
         float(train.goal[penalties].mean())
@@ -139,8 +149,12 @@ def fit(train: ShotTable, validation: ShotTable | None, settings: ModelSettings)
     return FittedModel(final, penalty_rate, len(whole), trees)
 
 
+def _load_lightgbm():
+    return importlib.import_module("lightgbm")
+
+
 def _make_dataset(shots: ShotTable, reference: lightgbm.Dataset | None = None) -> lightgbm.Dataset:
-    return lightgbm.Dataset(
+    return _load_lightgbm().Dataset(
         build_inputs(shots),
         label=shots.goal,
         feature_name=list(FEATURES),

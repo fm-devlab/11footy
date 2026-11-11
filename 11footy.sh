@@ -14,6 +14,8 @@ if [ "$UV" != uv ] && [ ! -x "$UV" ]; then
     read -r -p "Press Enter to close. " _
     exit 1
 fi
+# uv's own Python, which always has Tk: a system Python may not (Debian and Ubuntu ship it apart)
+export UV_PYTHON_PREFERENCE=only-managed
 # --inexact keeps anything else a maintainer installed in the same environment
 if ! "$UV" sync --frozen --inexact; then
     echo "The libraries could not be installed: see the lines above."

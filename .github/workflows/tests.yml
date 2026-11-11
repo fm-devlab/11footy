@@ -8,6 +8,10 @@ on:
 permissions:
   contents: read
 
+# uv's own Python: the runners' system Python on Linux has no Tk, which the window needs
+env:
+  UV_PYTHON_PREFERENCE: only-managed
+
 jobs:
   tests:
     strategy:
@@ -22,6 +26,9 @@ jobs:
       - uses: astral-sh/setup-uv@d0cc045d04ccac9d8b7881df0226f9e82c39688e  # v6.8.0
         with:
           python-version: "3.12"
+      # the expected-goals tests fit LightGBM, which on macOS needs the system's OpenMP
+      - if: runner.os == 'macOS'
+        run: brew install libomp
       - run: uv sync --frozen --extra dev
       # `python -m` puts the repository root on the path (a test imports `tests.vesta...`)
       - run: uv run python -m pytest tests/vesta tests/desk -q
