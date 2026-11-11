@@ -147,6 +147,12 @@ class Look:
             font.nametofont(default_font).configure(family=family, size=10)
         self._style()
         self.root.configure(background=self.colours.bg)
+        self._notify()
+        # sv-ttk recolours every plain widget on <<ThemeChanged>>, which macOS delivers after
+        # this call returns: draw once more when that event has been handled
+        self.root.after_idle(self._notify)
+
+    def _notify(self) -> None:
         # a copy: a listener may close a table, which leaves the list while it is read
         for listener in list(self.listeners):
             listener()
