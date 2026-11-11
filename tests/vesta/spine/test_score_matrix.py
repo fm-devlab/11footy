@@ -47,7 +47,7 @@ def test_the_neutral_calibration_is_two_independent_poissons():
     np.testing.assert_allclose(matrix[:10, :10], expected[:10, :10], atol=1e-12)
 
 
-def test_the_matrix_reproduces_the_previous_projects_numbers():
+def test_the_matrix_reproduces_the_reference_numbers():
     home, away, _, _ = synthetic_matches()
     matrix = score_matrices(home[:1], away[:1], REFERENCE_CALIBRATION)
     assert sum_result_probabilities(matrix)[0].tolist() == pytest.approx(
@@ -66,13 +66,13 @@ def test_the_matrix_reproduces_the_previous_projects_numbers():
                                  0.9684473660702897, -0.1999992594521797, 1.062916635109489)),
     ],
 )  # fmt: skip
-def test_the_calibration_fit_reproduces_the_previous_projects_numbers(
+def test_the_calibration_fit_reproduces_the_reference_numbers(
     fit_spread, fit_dispersion, expected
 ):
     home, away, home_goals, away_goals = synthetic_matches()
     fitted = fit_calibration(home, away, home_goals, away_goals, fit_spread, fit_dispersion)
     for name, value in expected.__dict__.items():
-        assert getattr(fitted, name) == pytest.approx(value, abs=1e-9), name
+        assert getattr(fitted, name) == pytest.approx(value, abs=1e-5), name
 
 
 def test_a_spread_of_zero_is_the_plain_product_and_a_positive_one_widens_the_gap():

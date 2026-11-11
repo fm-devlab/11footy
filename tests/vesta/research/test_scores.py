@@ -17,7 +17,7 @@ GOALS = {"probabilities": [0.2, 0.3, 0.25, 0.15, 0.1], "tail_from": 5, "tail": 0
 SCORE = {"matrix": [[0.3, 0.1], [0.2, 0.1]], "tail": 0.3}
 
 
-def test_result_scores_match_the_previous_projects_formulas():
+def test_result_scores_match_the_reference_formulas():
     scores = score("ordered", RESULT, "home")
     assert scores[LOG_LOSS] == pytest.approx(-math.log(0.5))
     assert scores[BRIER] == pytest.approx(0.25 + 0.09 + 0.04)

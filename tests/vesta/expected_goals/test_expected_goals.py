@@ -100,7 +100,7 @@ def test_the_shots_carry_the_score_of_the_moment_and_the_move(world):
     assert set(shots.same_minute.tolist()) >= {1}
 
 
-def test_the_inputs_put_the_categories_in_the_previous_projects_order():
+def test_the_inputs_put_the_categories_in_the_reference_order():
     from vesta.expected_goals.shots import ShotTable
 
     one = ShotTable(*(np.array([value]) for value in (

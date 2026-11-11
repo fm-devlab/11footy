@@ -233,7 +233,7 @@ def build(path: Path) -> Path:
         VERSION,
         "spine",
         "2026-08-01T00:00:00Z",
-        "The match engine realigned to the new world.",
+        "The match engine moved to the new world.",
         freeze_tag=VERSION,
         verdict_id="V-0001",
     )

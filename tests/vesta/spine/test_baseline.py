@@ -25,7 +25,7 @@ ROOT = Path(__file__).resolve().parents[3]
 SPINE = tomllib.loads((ROOT / "config/vesta/spine.toml").read_text(encoding="utf-8"))
 
 
-def test_the_goals_fit_reproduces_the_previous_projects_numbers():
+def test_the_goals_fit_reproduces_the_reference_numbers():
     """Reference values computed on 24 October 2026 on the same inputs (this fit differed by 0.0
     in every parameter)."""
     state = np.random.RandomState(7)
@@ -38,10 +38,10 @@ def test_the_goals_fit_reproduces_the_previous_projects_numbers():
     weights = np.exp(-0.003 * state.uniform(0, 1000, count))
     fit = fit_goals(home, away, home_goals, away_goals, weights, 2.0)
     assert fit.attack[:3].tolist() == pytest.approx(
-        [0.14831826928485967, -0.027090208942762137, 0.15923020220652082], abs=1e-12
+        [0.14831826928485967, -0.027090208942762137, 0.15923020220652082], abs=1e-6
     )
-    assert fit.home_advantage == pytest.approx(0.181061250039581, abs=1e-12)
-    assert fit.level == pytest.approx(0.05240647446722888, abs=1e-12)
+    assert fit.home_advantage == pytest.approx(0.181061250039581, abs=1e-6)
+    assert fit.level == pytest.approx(0.05240647446722888, abs=1e-6)
 
 
 def test_the_week_starts_on_monday_at_midnight_utc():

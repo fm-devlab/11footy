@@ -32,7 +32,7 @@ ENTRY = """
 [[hypothesis]]
 id = "H1"
 family_member = "spine"
-title = "the realigned champion"
+title = "the refitted champion"
 change = "the old champion on the new world"
 catalogue_ids = ["M1", "M2"]
 distribution_kind = "ordered"
@@ -105,11 +105,11 @@ def test_registry_refuses_a_duplicate_id_and_a_missing_field():
     with pytest.raises(RegistryError, match="twice"):
         parse_registry(ENTRY + ENTRY, grid_max=6)
     with pytest.raises(RegistryError, match="lacks"):
-        parse_registry(ENTRY.replace('title = "the realigned champion"\n', ""), grid_max=6)
+        parse_registry(ENTRY.replace('title = "the refitted champion"\n', ""), grid_max=6)
 
 
 def test_a_committed_entry_is_found(repository):
-    assert read_committed_hypothesis(repository, "H1", grid_max=6).title == "the realigned champion"
+    assert read_committed_hypothesis(repository, "H1", grid_max=6).title == "the refitted champion"
 
 
 def test_an_entry_written_after_the_commit_is_refused(repository):

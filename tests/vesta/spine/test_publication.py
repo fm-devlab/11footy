@@ -106,7 +106,7 @@ def frozen_repository(tmp_path: Path) -> Path:
 
 def test_a_version_is_registered_only_from_its_tag(tmp_path, frozen_repository):
     log = open_log(tmp_path / "forecast-log.db")
-    arguments = ("2.0.0", "spine", "S1", "the spine realigned", "2026-11-01T00:00:00Z", [1, 2],
+    arguments = ("2.0.0", "spine", "S1", "the spine refitted", "2026-11-01T00:00:00Z", [1, 2],
                  load_quantities())  # fmt: skip
     with pytest.raises(ForecastLogError, match="not the frozen code"):
         register_part(log, frozen_repository, *arguments)
